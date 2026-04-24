@@ -8,7 +8,17 @@ on:
 jobs:
   ping-backend:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
+      - name: Re-enable this workflow to prevent GitHub from disabling it
+        run: |
+          curl --silent --fail --show-error \
+            -X PUT \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/healthcheck-ping.yml/enable"
+
       - name: Ping deployed health endpoint
         env:
           HEALTHCHECK_URL: ${{ secrets.BACKEND_HEALTHCHECK_URL }}
