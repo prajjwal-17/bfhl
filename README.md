@@ -13,7 +13,6 @@ This project includes:
 
 ## Live Links
 
-- **Backend Base URL**: `https://prajjwalrawat-bfhl.onrender.com`
 - **Frontend URL**: `https://prajjwalrawat-fe-bfhl.vercel.app`
 
 ## Repository Structure
