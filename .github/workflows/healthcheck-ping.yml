@@ -1,0 +1,22 @@
+name: Keep Backend Warm
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping deployed health endpoint
+        env:
+          HEALTHCHECK_URL: ${{ secrets.BACKEND_HEALTHCHECK_URL }}
+        run: |
+          if [ -z "$HEALTHCHECK_URL" ]; then
+            echo "BACKEND_HEALTHCHECK_URL is not configured."
+            exit 1
+          fi
+
+          echo "Pinging $HEALTHCHECK_URL"
+          curl --fail --silent --show-error --max-time 20 "$HEALTHCHECK_URL"

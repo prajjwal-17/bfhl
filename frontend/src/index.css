@@ -1,0 +1,67 @@
+:root {
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #2a241f;
+  background:
+    radial-gradient(circle at top left, rgba(242, 164, 84, 0.24), transparent 28%),
+    radial-gradient(circle at top right, rgba(210, 98, 55, 0.18), transparent 30%),
+    linear-gradient(180deg, #fffaf4 0%, #f8ecde 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.28)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 46px,
+      rgba(179, 128, 89, 0.04) 46px,
+      rgba(179, 128, 89, 0.04) 47px
+    );
+  opacity: 0.6;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+}

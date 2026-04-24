@@ -1,0 +1,16 @@
+{
+  "name": "bfhl-api",
+  "version": "1.0.0",
+  "description": "Production-ready Express REST API for the BFHL coding challenge",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
