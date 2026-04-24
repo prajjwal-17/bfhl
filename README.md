@@ -412,7 +412,7 @@ npm run preview
 Required:
 
 ```env
-VITE_API_BASE_URL=https://prajjwalrawat-bfhl.onrender.com
+VITE_API_BASE_URL=API
 ```
 
 Example local file:
@@ -452,7 +452,7 @@ Settings used:
 Vercel environment variable:
 
 ```env
-VITE_API_BASE_URL=https://prajjwalrawat-bfhl.onrender.com
+VITE_API_BASE_URL=API
 ```
 
 ## GitHub Actions Health Check
@@ -478,7 +478,7 @@ BACKEND_HEALTHCHECK_URL
 Example value:
 
 ```text
-https://prajjwalrawat-bfhl.onrender.com/health
+api/health
 ```
 
 ## Example Test Cases
