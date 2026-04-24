@@ -56,12 +56,6 @@ bajaj/
 
 ## Backend
 
-### Base URL
-
-```text
-https://prajjwalrawat-bfhl.onrender.com
-```
-
 ### Endpoints
 
 #### `GET /`
