@@ -11,6 +11,26 @@ const COLLEGE_ROLL_NUMBER = "RA2311026010224";
 app.use(cors());
 app.use(express.json());
 
+function normalizeInvalidEntry(entry) {
+  if (typeof entry === "string") {
+    return entry;
+  }
+
+  if (entry === null) {
+    return "null";
+  }
+
+  if (typeof entry === "undefined") {
+    return "undefined";
+  }
+
+  try {
+    return JSON.stringify(entry);
+  } catch (error) {
+    return String(entry);
+  }
+}
+
 function validateInput(data) {
   if (!Array.isArray(data)) {
     return {
@@ -32,13 +52,13 @@ function validateInput(data) {
     const normalizedEntry = typeof rawEntry === "string" ? rawEntry.trim() : rawEntry;
 
     if (typeof normalizedEntry !== "string") {
-      invalidEntries.push(rawEntry);
+      invalidEntries.push(normalizeInvalidEntry(rawEntry));
       continue;
     }
 
     const match = normalizedEntry.match(edgePattern);
     if (!match) {
-      invalidEntries.push(rawEntry);
+      invalidEntries.push(normalizedEntry);
       continue;
     }
 
@@ -46,7 +66,7 @@ function validateInput(data) {
     const child = match[2];
 
     if (parent === child) {
-      invalidEntries.push(rawEntry);
+      invalidEntries.push(normalizedEntry);
       continue;
     }
 
@@ -277,7 +297,6 @@ function processHierarchies(data) {
     hierarchies.push({
       root,
       tree,
-      has_cycle: false,
       depth
     });
   }
