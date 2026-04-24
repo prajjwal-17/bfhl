@@ -159,7 +159,7 @@ function App() {
           </div>
           <div className="stat-card">
             <span className="stat-label">Frontend Target</span>
-            <strong>Render / Railway ready</strong>
+            <strong>Vercel ready</strong>
           </div>
         </div>
       </section>
