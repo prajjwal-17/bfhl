@@ -5,7 +5,7 @@ const defaultPayload = {
   data: ["A->B", "A->C", "B->D"]
 };
 
-const defaultApiBaseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
 
 function safeParseJson(value) {
   try {
@@ -73,7 +73,6 @@ function HierarchyCard({ hierarchy }) {
 }
 
 function App() {
-  const [apiBaseUrl, setApiBaseUrl] = useState(defaultApiBaseUrl);
   const [payloadText, setPayloadText] = useState(formatJson(defaultPayload));
   const [responseData, setResponseData] = useState(null);
   const [responseTimeMs, setResponseTimeMs] = useState(null);
@@ -90,13 +89,19 @@ function App() {
       return;
     }
 
+    if (!apiBaseUrl) {
+      setErrorMessage("Frontend is missing VITE_API_BASE_URL configuration.");
+      setResponseData(null);
+      return;
+    }
+
     setIsSubmitting(true);
     setErrorMessage("");
     setResponseTimeMs(null);
 
     try {
       const requestStartedAt = performance.now();
-      const response = await fetch(`${apiBaseUrl.replace(/\/$/, "")}/bfhl`, {
+      const response = await fetch(`${apiBaseUrl}/bfhl`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -125,7 +130,6 @@ function App() {
   }
 
   function handleReset() {
-    setApiBaseUrl(defaultApiBaseUrl);
     setPayloadText(formatJson(defaultPayload));
     setResponseData(null);
     setResponseTimeMs(null);
@@ -176,17 +180,6 @@ function App() {
               </button>
             </div>
           </div>
-
-          <label className="field">
-            <span>API base URL</span>
-            <input
-              type="url"
-              value={apiBaseUrl}
-              onChange={(event) => setApiBaseUrl(event.target.value)}
-              placeholder="https://your-backend.onrender.com"
-              required
-            />
-          </label>
 
           <label className="field">
             <span>JSON payload</span>
@@ -264,10 +257,7 @@ function App() {
                 </div>
                 <div className="hierarchy-grid">
                   {(responseData.hierarchies || []).map((hierarchy, index) => (
-                    <HierarchyCard
-                      key={`${hierarchy.root}-${index}`}
-                      hierarchy={hierarchy}
-                    />
+                    <HierarchyCard key={`${hierarchy.root}-${index}`} hierarchy={hierarchy} />
                   ))}
                 </div>
               </div>
